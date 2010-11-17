@@ -2301,11 +2301,11 @@ static memcached_return php_memc_do_stats_callback(
 
 	if (last != instance)
 	{
-		add_assoc_stringl(context->entry, (char *) key, key_length, value, value_length);
+		add_assoc_zval_ex(context->return_value, hostport, hostport_len+1, context->entry);
 		last = instance;
 	}
 
-	add_assoc_zval_ex(context->return_value, hostport, hostport_len+1, context->entry);
+	add_assoc_stringl(context->entry, (char *) key, value, value_length, 1);
 	efree(hostport);
 
 	/*
